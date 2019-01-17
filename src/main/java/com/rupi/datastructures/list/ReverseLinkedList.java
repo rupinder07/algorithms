@@ -10,6 +10,9 @@ public class ReverseLinkedList {
     }
 
     private Node reverseList(Node currentNode, Node previousNode) {
+        if(currentNode == null){
+            return null;
+        }
         if (currentNode.getNextNode() == null) {
             currentNode.setNextNode(previousNode);
             return currentNode;
