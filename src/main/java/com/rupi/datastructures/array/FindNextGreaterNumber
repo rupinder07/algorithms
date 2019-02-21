@@ -1,0 +1,42 @@
+package array;
+
+import java.util.Arrays;
+
+/**
+ * Given a number n, find the smallest number that has same set of digits as n and is greater than n. If x is the
+ * greatest possible number with its set of digits, then print “not possible”.
+ */
+public class FindNextGreaterNumber {
+
+    public static void main(String[] args) {
+        int[] a = {2, 1, 8, 7, 6, 5};
+
+        findNext(a);
+        a = new int[]{4,3,2,1};
+
+        findNext(a);
+    }
+
+    private static void findNext(int[] a) {
+        int i;
+        // find a number which is smaller than next number in the array
+        for (i = a.length - 1; i > 0; i--) {
+            if (a[i] > a[i - 1]) {
+                int temp = a[i-1];
+                a[i-1] = a[a.length-1];
+                a[a.length-1] = temp;
+                break;
+            }
+        }
+
+        if (i == 0) {
+            System.out.println("Not possible");
+        } else {
+            Arrays.sort(a, i, a.length);
+            for (int j = 0; j<a.length; j++) {
+                System.out.println(a[j]);
+            }
+        }
+
+    }
+}
