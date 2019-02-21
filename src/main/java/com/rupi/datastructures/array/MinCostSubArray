@@ -1,0 +1,45 @@
+package array;
+
+import java.util.Scanner;
+
+/**
+ * Given a number X. Calculate the minimum cost required to reach to X starting from 0 (i.e 0 to X!). 'A' cost will be
+ * added to the total cost if the value is incremented by 1 and 'B' cost will be added if we double the number.
+ * <p>
+ * Following input is given number X, value for A and value for B. Note: Cost can not be negative at any time. Expected
+ * output: minimum cost.
+ * <p>
+ * <p>
+ * For E.g : 1) 4 1 1
+ * <p>
+ * output: 3 Explanation: add 1 to 0 , cost is A i.e 1; next number is 1 add 1 to 1 cost is 1 (prev cost) + 1 => 2, next
+ * number is 2 double 2, cost is 2( prev cost )+ 1 (B), next number is 4. minimum cost is 3
+ * <p>
+ * 2) 4 1 5 output: 4 Explanation: add 1 to 0 , cost is A i.e 1; next number is 1 add 1 to 1 cost is 1 (prev cost) + 1
+ * => 2, next number is 2 add 1 to 2, cost is 2( prev cost )+ 1 (A), next number is 3. (doubling 2 will add 5 to prev
+ * cost which is more than 3.) add 1 to 3, cost is 3( prev cost) + 1 (A), next number is 4 min cost is 4
+ */
+public class MinCostSubArray {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int X = sc.nextInt();
+        int A = sc.nextInt();
+        int B = sc.nextInt();
+        System.out.println(findMinCost(X, A, B));
+    }
+
+    private static int findMinCost(int x, int a, int b) {
+        int minCost[] = new int[x + 1];
+        minCost[0] = 0;
+        minCost[1] = 1;
+        for (int i = 2; i <= x; i++) {
+            int min = Integer.MAX_VALUE;
+            if(i%2 == 0) {
+                min = minCost[i/2] + b;
+            }
+            minCost[i] = min <= minCost[i-1] + a ? min : minCost[i-1] + a;
+        }
+        return minCost[x];
+    }
+}
