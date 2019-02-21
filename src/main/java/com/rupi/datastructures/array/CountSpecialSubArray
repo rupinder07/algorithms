@@ -1,0 +1,64 @@
+package array;
+
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+/**
+ * Given an array with distinct numbers. The array is 1-indexed. Find the total number of subarrays, where the second
+ * highest number comes to the left of highest number, and the indexes of the sub array are unique.
+ *
+ * Input :
+ * number of elements, N
+ * Array of size N
+ *
+ * Output : total number of subarrays.
+ *
+ * For e.g.:
+ * 4
+ * 1, 3, 2, 4
+ *
+ * output: 3
+ *
+ * Explanation:
+ *
+ * Subarray (1,3). 1 is second highest in this subarray. Index of 1 is 1 and index of 3 is 2. Therefore, (1,2) is
+ * unique special subarray.
+ * Subarray (3,2). 2 is on the left of 3 , not a special sub array.
+ * Subarray (2,4). 2 is second highest in this subarray. Index of 2 is 1 and index of 4 is 2. Therefore, (1,2) is
+ * a special array but not unique. This will not be counted.
+ * Subarray (1, 3, 2). 2 is on the left of 3 , not a special sub array.
+ * Subarray (3, 2, 4). 3 is second highest in this subarray. Index of 3 is 1 and index of 4 is 3. Therefore, (1,3) is
+ * unique special subarray.
+ * Subarray (1,3, 2, 4). 3 is second highest in this subarray. Index of 3 is 2 and index of 4 is 4. Therefore, (2,4) is
+ * unique special subarray.
+ *
+ * Total count is 3.
+ */
+public class CountSpecialSubArray {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int a[] = new int[n];
+        for(int i = 0; i< n ;i++){
+            a[i] = sc.nextInt();
+        }
+
+        System.out.println(numberOfSubArray(a, n));
+    }
+
+    private static int numberOfSubArray(int[] a, int n) {
+        Set<String> specialSubArray = new HashSet<>();
+        for(int i = 0; i< n-1; i++) {
+            int max = i;
+            for(int j = i + 1; j< n; j++) {
+                if(a[j] > a[max]) {
+                    specialSubArray.add("(" + (max - i) + "," + (j - i) + ")");
+                    max = j;
+                }
+            }
+        }
+        return specialSubArray.size();
+    }
+}
