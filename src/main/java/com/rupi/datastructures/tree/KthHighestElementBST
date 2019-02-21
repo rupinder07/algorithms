@@ -1,0 +1,101 @@
+package tree;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ * Find kth highest element in a BST
+ */
+public class KthHighestElementBST {
+
+    public static void main(String[] args) {
+        Node root = new Node(25);
+        Node node1 = new Node(15);
+        Node node2 = new Node(50);
+        Node node3 = new Node(10);
+        Node node4 = new Node(22);
+        Node node5 = new Node(35);
+        Node node6 = new Node(70);
+        Node node7 = new Node(4);
+        Node node8 = new Node(12);
+        Node node9 = new Node(18);
+        Node node10 = new Node(24);
+        Node node11 = new Node(31);
+        Node node12 = new Node(44);
+        Node node13 = new Node(66);
+        Node node14 = new Node(90);
+
+        root.setLeft(node1);
+        root.setRight(node2);
+
+        node1.setLeft(node3);
+        node1.setRight(node4);
+
+        node2.setLeft(node5);
+        node2.setRight(node6);
+
+        node3.setLeft(node7);
+        node3.setRight(node8);
+
+        node4.setLeft(node9);
+        node4.setRight(node10);
+
+        node5.setLeft(node11);
+        node5.setRight(node12);
+
+        node6.setLeft(node13);
+        node6.setRight(node14);
+
+
+        Scanner sc = new Scanner(System.in);
+        int k = sc.nextInt();
+        List<Integer> inorder = new ArrayList<>();
+        findKthHighestElement(root, inorder);
+        System.out.println(inorder.get(inorder.size() - k));
+    }
+
+    private static void findKthHighestElement(final Node node, List<Integer> inorder) {
+        if(node == null) {
+            return ;
+        }
+
+
+        findKthHighestElement(node.getLeft(), inorder);
+        inorder.add(node.getData());
+        findKthHighestElement(node.getRight(), inorder);
+    }
+}
+
+class Node {
+    private int data;
+    private Node left;
+    private Node right;
+
+    public Node(int data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public Node getLeft() {
+        return left;
+    }
+
+    public Node getRight() {
+        return right;
+    }
+
+    public void setLeft(Node left) {
+        this.left = left;
+    }
+
+    public void setRight(Node right) {
+        this.right = right;
+    }
+}
